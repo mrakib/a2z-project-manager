@@ -41,7 +41,17 @@ class A2ZPM_Admin_Menu {
      * @return void
      **/
     function a2zpm_project() {
-        include A2ZPM_VIEWS . '/projects/projects.php';
+        $section = isset( $_GET['section'] ) ? $_GET['section'] : '';
+
+        switch ( $section ) {
+            case 'new-project':
+                include A2ZPM_VIEWS . '/projects/new-projects.php';
+                break;
+
+            default:
+                include A2ZPM_VIEWS . '/projects/projects.php';
+                break;
+        }
     }
 
     /**
