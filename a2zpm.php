@@ -167,6 +167,7 @@ class A2Z_PM {
     public function includes() {
         if ( is_admin() ) {
             new A2ZPM_Admin_Menu();
+            new A2ZPM_Form_Handler();
         }
     }
 

@@ -48,6 +48,16 @@ class A2ZPM_Admin_Menu {
                 include A2ZPM_VIEWS . '/projects/new-projects.php';
                 break;
 
+            case 'project-details':
+                $project_id = isset( $_GET['project_id'] ) ? $_GET['project_id'] : 0;
+
+                if ( ! $project_id ) {
+                    return;
+                }
+
+                include A2ZPM_VIEWS . '/projects/projects-details.php';
+                break;
+
             default:
                 include A2ZPM_VIEWS . '/projects/projects.php';
                 break;
