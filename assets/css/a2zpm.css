@@ -1,3 +1,13 @@
 #a2zpm-projects .a2zpm-projects-wrap {
   margin-top: 30px;
 }
+
+.white-popup {
+  position: relative;
+  background: #FFF;
+  padding: 20px;
+  width: auto;
+  max-width: 500px;
+  margin: 20px auto;
+}
+

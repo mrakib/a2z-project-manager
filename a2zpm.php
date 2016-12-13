@@ -153,6 +153,7 @@ class A2Z_PM {
         define( 'A2ZPM_PATH', dirname( A2ZPM_FILE ) );
         define( 'A2ZPM_INCLUDES', A2ZPM_PATH . '/includes' );
         define( 'A2ZPM_VIEWS', A2ZPM_PATH . '/views' );
+        define( 'A2ZPM_JS_TEMPLATE', A2ZPM_PATH . '/views/js-templates' );
         define( 'A2ZPM_URL', plugins_url( '', A2ZPM_FILE ) );
         define( 'A2ZPM_ASSETS', A2ZPM_URL . '/assets' );
     }
@@ -166,9 +167,14 @@ class A2Z_PM {
      */
     public function includes() {
         if ( is_admin() ) {
+            new A2ZPM_Ajax();
             new A2ZPM_Admin_Menu();
             new A2ZPM_Form_Handler();
         }
+
+        // Required all functions file from includes folder
+        require_once A2ZPM_INCLUDES. '/functions.php';
+        require_once A2ZPM_INCLUDES. '/functions-projects.php';
     }
 
     /**
@@ -192,6 +198,7 @@ class A2Z_PM {
     public function init_actions_filters() {
         add_action( 'init', array( $this, 'localization_setup' ) );
         add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
+        add_action( 'admin_footer', array( $this, 'load_js_templates' ) );
     }
 
     /**
@@ -216,16 +223,29 @@ class A2Z_PM {
      */
     public function enqueue_scripts() {
         wp_enqueue_style( 'a2zpm-styles', plugins_url( 'assets/css/a2zpm.css', __FILE__ ), false, date( 'Ymd' ) );
+        wp_enqueue_style( 'a2zpm-magnific-popup-style', plugins_url( 'assets/css/magnific-popup.css', __FILE__ ), false, date( 'Ymd' ) );
 
+        wp_enqueue_script( 'a2zpm-magnific-popup', plugins_url( 'assets/js/jquery.magnific-popup.js', __FILE__ ), array( 'jquery' ), false, true );
         wp_enqueue_script( 'a2zpm-vue', plugins_url( 'assets/js/vue.js', __FILE__ ), array( 'jquery' ), false, true );
         wp_enqueue_script( 'a2zpm-scripts', plugins_url( 'assets/js/a2zpm.js', __FILE__ ), array( 'jquery', 'a2zpm-vue' ), false, true );
 
         $localize_script = array(
             'ajaxurl' => admin_url( 'admin-ajax.php' ),
-            'nonce' => wp_create_nonce( 'a2zpm_nonce' )
+            '_wpnonce' => wp_create_nonce( 'a2zpm_nonce' )
         );
 
         wp_localize_script( 'a2zpm-scripts', 'a2zpm', $localize_script );
+    }
+
+    /**
+    * Load all js template
+    *
+    * @since 1.0.0
+    *
+    * @return void
+    **/
+    public function load_js_templates() {
+        a2zpm_get_js_template( A2ZPM_JS_TEMPLATE. '/new-project.php', 'a2zpm-new-project' );
     }
 
 } // A2Z_PM
