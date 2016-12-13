@@ -9,7 +9,7 @@
 
         <div>
             <label>Project Description</label>
-            <input type="text" name="project_name" value="">
+            <input type="text" name="project_desc" value="">
         </div>
 
         <div>
