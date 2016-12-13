@@ -34,7 +34,7 @@ class A2ZPM_Form_Handler {
              
             // Insert the post into the database
             wp_insert_post( $my_post );
-            var_dump( 'inserted' ); die();
+            // var_dump( 'inserted' ); die();
         }
     }
 }
