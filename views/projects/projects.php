@@ -20,6 +20,8 @@
 		            <input type="text" name="project_desc" value="">
 		        </div>
 
+		        <input type="hidden" name="post_type" value="project">
+
 		        <div>
 		            <label>Project category</label>
 		            <select>

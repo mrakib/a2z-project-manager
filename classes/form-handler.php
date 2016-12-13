@@ -28,8 +28,9 @@ class A2ZPM_Form_Handler {
 
             $my_post = array(
                 'post_title'    => wp_strip_all_tags( $_POST['project_name'] ),
-                'post_content'  => $_POST['project_desc'],
-                'post_author'   => get_current_user_id()
+                'post_content'  => wp_strip_all_tags( $_POST['project_desc'] ),
+                'post_author'   => get_current_user_id(),
+                'post_type'     => wp_strip_all_tags( $_POST['post_type'] )
             );
              
             // Insert the post into the database
